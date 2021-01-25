@@ -1,6 +1,4 @@
 import * as fs from "fs";
-import * as fsextra from "fs-extra";
-import * as archiver from "archiver";
 import * as shell from 'shelljs';
 
 import * as cache from "@actions/cache";
@@ -45,7 +43,7 @@ async function run(): Promise<void> {
             });
             const cachePathsStr = cachePaths.join(" ")
             const archiveFile = '/tmp/' + primaryKey + '.tar.gz'
-            if (shell.exec('tar czvf ' + archiveFile + '.tar.gz ' + cachePathsStr).code !== 0) {
+            if (shell.exec('tar czvf ' + archiveFile + ' ' + cachePathsStr).code !== 0) {
                 throw new Error(`unable to archive`)
             }
             fs.copyFileSync(archiveFile, dir)
