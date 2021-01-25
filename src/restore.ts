@@ -1,7 +1,7 @@
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
-
-import { Events, Inputs, State } from "./constants";
+import * as fsextra from "fs-extra";
+import { CacheDir, Events, Inputs, State } from "./constants";
 import * as utils from "./utils/actionUtils";
 
 async function run(): Promise<void> {
@@ -30,37 +30,44 @@ async function run(): Promise<void> {
             required: true
         });
 
-    //     try {
-    //         const cacheKey = await cache.restoreCache(
-    //             cachePaths,
-    //             primaryKey,
-    //             restoreKeys
-    //         );
-    //         if (!cacheKey) {
-    //             core.info(
-    //                 `Cache not found for input keys: ${[
-    //                     primaryKey,
-    //                     ...restoreKeys
-    //                 ].join(", ")}`
-    //             );
-    //             return;
-    //         }
+        try {
+            for (let cachePath of cachePaths) {
+                //create chache dir   
+                const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath
+                    fsextra.copy(cachePath, dir), err => {
+                        if (err) return err;
+                    }
+            }
+            // const cacheKey = await cache.restoreCache(
+            //     cachePaths,
+            //     primaryKey,
+            //     restoreKeys
+            // );
+            // if (!cacheKey) {
+            //     core.info(
+            //         `Cache not found for input keys: ${[
+            //             primaryKey,
+            //             ...restoreKeys
+            //         ].join(", ")}`
+            //     );
+            //     return;
+            // }
 
-    //         // Store the matched cache key
-    //         utils.setCacheState(cacheKey);
+            // // Store the matched cache key
+            // utils.setCacheState(cacheKey);
 
-    //         const isExactKeyMatch = utils.isExactKeyMatch(primaryKey, cacheKey);
-    //         utils.setCacheHitOutput(isExactKeyMatch);
+            // const isExactKeyMatch = utils.isExactKeyMatch(primaryKey, cacheKey);
+            // utils.setCacheHitOutput(isExactKeyMatch);
 
-    //         core.info(`Cache restored from key: ${cacheKey}`);
-    //     } catch (error) {
-    //         if (error.name === cache.ValidationError.name) {
-    //             throw error;
-    //         } else {
-    //             utils.logWarning(error.message);
-    //             utils.setCacheHitOutput(false);
-    //         }
-    //     }
+            core.info(`Cache restored from key: ${cacheKey}`);
+        } catch (error) {
+            if (error.name === cache.ValidationError.name) {
+                throw error;
+            } else {
+                utils.logWarning(error.message);
+                utils.setCacheHitOutput(false);
+            }
+        }
     } catch (error) {
         core.setFailed(error.message);
     }

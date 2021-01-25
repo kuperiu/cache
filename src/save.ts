@@ -2,11 +2,10 @@ import * as fs from "fs";
 import * as fsextra from "fs-extra";
 import * as path from "path";
 
-import { CacheDir } from "./constants";
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
 
-import { Events, Inputs, State } from "./constants";
+import { CacheDir, Events, Inputs, State } from "./constants";
 import * as utils from "./utils/actionUtils";
 
 async function run(): Promise<void> {
@@ -41,8 +40,7 @@ async function run(): Promise<void> {
             for (let cachePath of cachePaths) {
                 //create chache dir   
                 const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath
-                console.log(dir)
-                fs.mkdir('dir', { recursive: true }, (err) => {
+                fs.mkdir(dir, { recursive: true }, (err) => {
                     if (err) return err;
                 });
                     fsextra.copy(cachePath, dir), err => {
