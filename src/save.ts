@@ -40,13 +40,14 @@ async function run(): Promise<void> {
         try {
             for (let cachePath of cachePaths) {
                 //create chache dir   
-                const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + path.basename(cachePath)
-                fs.mkdir('dir', { recursive: true }, (err) => {
-                    if (err) return err;
-                });
-                    fsextra.copy(cachePaths, dir), err => {
-                        if (err) return err;
-                    }
+                console.log(cachePath)
+                // const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + path.basename(cachePath)
+                // fs.mkdir('dir', { recursive: true }, (err) => {
+                //     if (err) return err;
+                // });
+                //     fsextra.copy(cachePaths, dir), err => {
+                //         if (err) return err;
+                //     }
             }
 
         } catch (error) {
