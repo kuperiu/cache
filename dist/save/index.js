@@ -615,7 +615,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(__webpack_require__(747));
 const constants_1 = __webpack_require__(211);
-const core = __importStar(__webpack_require__(470));
+const constants_2 = __webpack_require__(211);
 const utils = __importStar(__webpack_require__(443));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -631,20 +631,19 @@ function run() {
             //     utils.logWarning(`Error retrieving key from state.`);
             //     return;
             // }
-            const test = core.getInput('path');
-            console.log(test);
-            for (let val of test) {
-                console.log(val);
-            }
             // if (utils.isExactKeyMatch(primaryKey, state)) {
             //     core.info(
             //         `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
             //     );
             //     return;
             // }
-            // const cachePaths = utils.getInputAsArray(Inputs.Path, {
-            //     required: true
-            // });
+            const cachePaths = utils.getInputAsArray(constants_2.Inputs.Path, {
+                required: true
+            });
+            for (let val of cachePaths) {
+                console.log(val);
+                console.log("2");
+            }
             try {
                 //create chache dir
                 // const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + path.basename(src)

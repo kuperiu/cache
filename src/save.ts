@@ -25,11 +25,6 @@ async function run(): Promise<void> {
         //     return;
         // }
 
-        const test = core.getInput('path')
-        console.log(test)
-        for(let val of test) {
-            console.log(val)
-        }
         // if (utils.isExactKeyMatch(primaryKey, state)) {
         //     core.info(
         //         `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
@@ -37,9 +32,13 @@ async function run(): Promise<void> {
         //     return;
         // }
 
-        // const cachePaths = utils.getInputAsArray(Inputs.Path, {
-        //     required: true
-        // });
+        const cachePaths = utils.getInputAsArray(Inputs.Path, {
+            required: true
+        });
+        for(let val of cachePaths) {
+            console.log(val)
+            console.log("2")
+        }
 
         try {
             //create chache dir
