@@ -3202,9 +3202,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(__webpack_require__(747));
 const fsextra = __importStar(__webpack_require__(226));
-const constants_1 = __webpack_require__(211);
 const core = __importStar(__webpack_require__(470));
-const constants_2 = __webpack_require__(211);
+const constants_1 = __webpack_require__(211);
 const utils = __importStar(__webpack_require__(443));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -3215,7 +3214,7 @@ function run() {
             }
             const state = utils.getCacheState();
             // // Inputs are re-evaluted before the post action, so we want the original key used for restore
-            const primaryKey = core.getState(constants_2.State.CachePrimaryKey);
+            const primaryKey = core.getState(constants_1.State.CachePrimaryKey);
             if (!primaryKey) {
                 utils.logWarning(`Error retrieving key from state.`);
                 return;
@@ -3224,15 +3223,14 @@ function run() {
                 core.info(`Cache hit occurred on the primary key ${primaryKey}, not saving cache.`);
                 return;
             }
-            const cachePaths = utils.getInputAsArray(constants_2.Inputs.Path, {
+            const cachePaths = utils.getInputAsArray(constants_1.Inputs.Path, {
                 required: true
             });
             try {
                 for (let cachePath of cachePaths) {
                     //create chache dir   
                     const dir = constants_1.CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath;
-                    console.log(dir);
-                    fs.mkdir('dir', { recursive: true }, (err) => {
+                    fs.mkdir(dir, { recursive: true }, (err) => {
                         if (err)
                             return err;
                     });

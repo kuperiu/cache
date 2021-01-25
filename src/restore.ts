@@ -59,7 +59,7 @@ async function run(): Promise<void> {
             // const isExactKeyMatch = utils.isExactKeyMatch(primaryKey, cacheKey);
             // utils.setCacheHitOutput(isExactKeyMatch);
 
-            core.info(`Cache restored from key: ${cacheKey}`);
+           // core.info(`Cache restored from key: ${cacheKey}`);
         } catch (error) {
             if (error.name === cache.ValidationError.name) {
                 throw error;
