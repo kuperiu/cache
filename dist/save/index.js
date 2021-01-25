@@ -616,7 +616,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(__webpack_require__(747));
 const constants_1 = __webpack_require__(211);
 const core = __importStar(__webpack_require__(470));
-const constants_2 = __webpack_require__(211);
 const utils = __importStar(__webpack_require__(443));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -627,11 +626,11 @@ function run() {
             }
             // const state = utils.getCacheState();
             // // Inputs are re-evaluted before the post action, so we want the original key used for restore
-            const primaryKey = core.getState(constants_2.State.CachePrimaryKey);
-            if (!primaryKey) {
-                utils.logWarning(`Error retrieving key from state.`);
-                return;
-            }
+            // const primaryKey = core.getState(State.CachePrimaryKey);
+            // if (!primaryKey) {
+            //     utils.logWarning(`Error retrieving key from state.`);
+            //     return;
+            // }
             const test = core.getInput('path');
             console.log(test);
             for (let val of test) {
