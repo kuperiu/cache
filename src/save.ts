@@ -44,7 +44,7 @@ async function run(): Promise<void> {
                 if (err) return err;
             });
             const cachePathsStr = cachePaths.join(" ")
-            const archiveFile = 'tmp/' + primaryKey + '.tar.gz'
+            const archiveFile = '/tmp/' + primaryKey + '.tar.gz'
             if (shell.exec('tar czvf ' + archiveFile + '.tar.gz ' + cachePathsStr).code !== 0) {
                 throw new Error(`unable to archive`)
             }
