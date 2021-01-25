@@ -41,6 +41,7 @@ async function run(): Promise<void> {
             for (let cachePath of cachePaths) {
                 //create chache dir   
                 const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath
+                console.log(dir)
                 fs.mkdir('dir', { recursive: true }, (err) => {
                     if (err) return err;
                 });
