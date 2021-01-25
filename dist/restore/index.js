@@ -49026,6 +49026,7 @@ function run() {
                 for (let cachePath of cachePaths) {
                     //create chache dir   
                     const dir = constants_1.CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath;
+                    console.log(dir);
                     fsextra.copy(cachePath, dir), err => {
                         if (err)
                             return err;
