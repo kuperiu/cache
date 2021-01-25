@@ -49025,8 +49025,11 @@ function run() {
             try {
                 for (let cachePath of cachePaths) {
                     //create chache dir   
+                    if (cachePath.charAt(0) == "~") {
+                        const home = process.env["HOME"] || "/home/runner";
+                        cachePath = cachePath.replace("~", home);
+                    }
                     const dir = constants_1.CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath;
-                    console.log(dir);
                     fsextra.copy(cachePath, dir), err => {
                         if (err)
                             return err;

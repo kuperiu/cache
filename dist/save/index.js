@@ -3229,6 +3229,10 @@ function run() {
             try {
                 for (let cachePath of cachePaths) {
                     //create chache dir   
+                    if (cachePath.charAt(0) == "~") {
+                        const home = process.env["HOME"] || "/home/runner";
+                        cachePath = cachePath.replace("~", home);
+                    }
                     const dir = constants_1.CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath;
                     fs.mkdir(dir, { recursive: true }, (err) => {
                         if (err)
