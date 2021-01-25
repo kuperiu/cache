@@ -16,40 +16,38 @@ async function run(): Promise<void> {
             return;
         }
 
-        // const state = utils.getCacheState();
+        const state = utils.getCacheState();
 
         // // Inputs are re-evaluted before the post action, so we want the original key used for restore
-        // const primaryKey = core.getState(State.CachePrimaryKey);
-        // if (!primaryKey) {
-        //     utils.logWarning(`Error retrieving key from state.`);
-        //     return;
-        // }
+        const primaryKey = core.getState(State.CachePrimaryKey);
+        if (!primaryKey) {
+            utils.logWarning(`Error retrieving key from state.`);
+            return;
+        }
 
-        // if (utils.isExactKeyMatch(primaryKey, state)) {
-        //     core.info(
-        //         `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
-        //     );
-        //     return;
-        // }
+        if (utils.isExactKeyMatch(primaryKey, state)) {
+            core.info(
+                `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
+            );
+            return;
+        }
 
         const cachePaths = utils.getInputAsArray(Inputs.Path, {
             required: true
         });
-        for(let val of cachePaths) {
-            console.log(val)
-            console.log("2")
-        }
+
 
         try {
-            //create chache dir
-   
-            // const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + path.basename(src)
-            // fs.mkdir('dir', { recursive: true }, (err) => {
-            //     if (err) return err;
-            //   });
-            // fsextra.copy(src, dir), err => {
-            //     if (err) return err;
-            // }
+            for (let cachePath of cachePaths) {
+                //create chache dir   
+                const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + path.basename(cachePath)
+                fs.mkdir('dir', { recursive: true }, (err) => {
+                    if (err) return err;
+                });
+                    fsextra.copy(cachePaths, dir), err => {
+                        if (err) return err;
+                    }
+            }
 
         } catch (error) {
             utils.logWarning(error.message);
