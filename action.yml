@@ -19,9 +19,9 @@ outputs:
     description: 'A boolean value to indicate an exact match was found for the primary key'
 runs:
   using: 'node12'
-  main: 'dist/save/index.js'
-  # post: 'dist/save/index.js'
-  # post-if: 'success()'
+  main: 'dist/restore/index.js'
+  post: 'dist/save/index.js'
+  post-if: 'success()'
 branding:
   icon: 'archive'
   color: 'gray-dark'
