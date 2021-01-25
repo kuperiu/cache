@@ -3235,7 +3235,7 @@ function run() {
                         if (err)
                             return err;
                     });
-                    fsextra.copy(cachePaths, dir), err => {
+                    fsextra.copy(cachePath, dir), err => {
                         if (err)
                             return err;
                     };

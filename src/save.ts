@@ -44,7 +44,7 @@ async function run(): Promise<void> {
                 fs.mkdir('dir', { recursive: true }, (err) => {
                     if (err) return err;
                 });
-                    fsextra.copy(cachePaths, dir), err => {
+                    fsextra.copy(cachePath, dir), err => {
                         if (err) return err;
                     }
             }
