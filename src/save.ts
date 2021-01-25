@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as fsextra from "fs-extra";
-import * as path from "path";
+import * as archiver from "archiver";
+import * as shell from 'shelljs';
 
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
@@ -36,23 +37,19 @@ async function run(): Promise<void> {
         });
 
 
-        try {
-            for (let cachePath of cachePaths) {
-                //create chache dir   
-                if (cachePath.charAt(0) == "~") {
-                    const home = process.env["HOME"] || "/home/runner"
-                    cachePath = cachePath.replace("~", home)
-                }
-                const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"] + "/" + primaryKey + "/" + cachePath
-                
-                fs.mkdir(dir, { recursive: true }, (err) => {
-                    if (err) return err;
-                });
-                    fsextra.copy(cachePath, dir), err => {
-                        if (err) return err;
-                    }
-            }
 
+        try {
+            const dir = CacheDir + "/" + process.env["GITHUB_REPOSITORY"]
+            fs.mkdir(dir, { recursive: true }, (err) => {
+                if (err) return err;
+            });
+            const cachePathsStr = cachePaths.join(" ")
+            const archiveFile = 'tmp/' + primaryKey + '.tar.gz'
+            if (shell.exec('tar czvf ' + archiveFile + '.tar.gz ' + cachePathsStr).code !== 0) {
+                throw new Error(`unable to archive`)
+            }
+            fs.copyFileSync(archiveFile, dir)
+            
         } catch (error) {
             utils.logWarning(error.message);
         }
