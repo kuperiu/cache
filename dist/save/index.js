@@ -2040,7 +2040,7 @@ var Events;
     Events["PullRequest"] = "pull_request";
 })(Events = exports.Events || (exports.Events = {}));
 exports.RefKey = "GITHUB_REF";
-exports.CacheDir = "/efs";
+exports.CacheDir = "/tmp";
 
 
 /***/ }),

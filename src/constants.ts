@@ -22,4 +22,4 @@ export enum Events {
 
 export const RefKey = "GITHUB_REF";
 
-export const CacheDir = "/efs";
+export const CacheDir = "/tmp";
